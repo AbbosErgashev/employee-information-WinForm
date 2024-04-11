@@ -6,28 +6,15 @@ using System.Windows.Forms;
 
 namespace CRUDDemo
 {
-    public partial class Form1 : Form
+#nullable disable
+    public partial class CRUD : Form
     {
-        public Form1()
+        public CRUD()
         {
             InitializeComponent();
         }
 
         SqlConnection con = new SqlConnection(@"Data Source=localhost;Initial Catalog=crud_db;Integrated Security=True");
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cnn = new SqlCommand("insert into emptab values(@id,@name,@age,@salary)", con);
-            cnn.Parameters.AddWithValue("@Id", int.Parse(textBox1.Text));
-            cnn.Parameters.AddWithValue("@Name", textBox2.Text);
-            cnn.Parameters.AddWithValue("@Age", int.Parse(textBox3.Text));
-            cnn.Parameters.AddWithValue("@Salary", int.Parse(textBox4.Text));
-            cnn.ExecuteNonQuery();
-            con.Close();
-            BinData();
-            MessageBox.Show("Record Added Successfully", "Add", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -36,57 +23,116 @@ namespace CRUDDemo
 
         void BinData()
         {
-            SqlConnection con = new SqlConnection(@"Data Source=localhost;Initial Catalog=crud_db;Integrated Security=True");
             SqlCommand cnn = new SqlCommand("select * from emptab", con);
             SqlDataAdapter da = new SqlDataAdapter(cnn);
             DataTable table = new DataTable();
             da.Fill(table);
             dataGridView1.DataSource = table;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (nameTb.Text == "" || ageTB.Text == "" || salaryTB.Text == "")
+            {
+                MessageBox.Show("Missing Information!!!");
+            }
+            else
+            {
+                try
+                {
+                    con.Open();
+                    SqlCommand cnn = new SqlCommand("insert into emptab values(@name,@age,@salary)", con);
+                    cnn.Parameters.AddWithValue("@Name", nameTb.Text);
+                    cnn.Parameters.AddWithValue("@Age", int.Parse(ageTB.Text));
+                    cnn.Parameters.AddWithValue("@Salary", int.Parse(salaryTB.Text));
+                    cnn.ExecuteNonQuery();
+                    con.Close();
+                    BinData();
+                    MessageBox.Show("Record Added Successfully", "Add", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    con.Close();
+                }
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=localhost;Initial Catalog=crud_db;Integrated Security=True");
-
-            con.Open();
-            SqlCommand cnn = new SqlCommand("update emptab set name=@name,age=@age,salary=@salary where id=@id", con);
-            cnn.Parameters.AddWithValue("@Id", int.Parse(textBox1.Text));
-            cnn.Parameters.AddWithValue("@Name", textBox2.Text);
-            cnn.Parameters.AddWithValue("@Age", int.Parse(textBox3.Text));
-            cnn.Parameters.AddWithValue("@Salary", int.Parse(textBox4.Text));
-            cnn.ExecuteNonQuery();
-            con.Close();
-
-            MessageBox.Show("Record Updated Successfully", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (idTB.Text == "" || nameTb.Text == "" || ageTB.Text == "" || salaryTB.Text == "")
+            {
+                MessageBox.Show("Missing Information!!!");
+            }
+            else
+            {
+                try
+                {
+                    con.Open();
+                    SqlCommand cnn = new SqlCommand("update emptab set name=@name,age=@age,salary=@salary where id=@id", con);
+                    cnn.Parameters.AddWithValue("@Id", int.Parse(idTB.Text));
+                    cnn.Parameters.AddWithValue("@Name", nameTb.Text);
+                    cnn.Parameters.AddWithValue("@Age", int.Parse(ageTB.Text));
+                    cnn.Parameters.AddWithValue("@Salary", int.Parse(salaryTB.Text));
+                    cnn.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Record Updated Successfully", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    con.Close();
+                }
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            con.Open();
-            SqlCommand cnn = new SqlCommand("delete from emptab where id=@id", con);
-            cnn.Parameters.AddWithValue("@Id", int.Parse(textBox1.Text));
-
-            cnn.ExecuteNonQuery();
-            con.Close();
-
-            MessageBox.Show("Record Deleted Successfully", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                con.Open();
+                SqlCommand cnn = new SqlCommand("delete from emptab where id=@id", con);
+                cnn.Parameters.AddWithValue("@Id", int.Parse(idTB.Text));
+                cnn.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Record Deleted Successfully", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "";
-            textBox2.Text = "";
-            textBox3.Text = "";
-            textBox4.Text = "";
+            idTB.Text = "";
+            nameTb.Text = "";
+            ageTB.Text = "";
+            salaryTB.Text = "";
         }
 
         private void btnDisplay_Click(object sender, EventArgs e)
         {
-            SqlCommand cnn = new SqlCommand("select * from emptab", con);
-            SqlDataAdapter da = new SqlDataAdapter(cnn);
-            DataTable table = new DataTable();
-            da.Fill(table);
-            dataGridView1.DataSource = table;
+            if (con == null)
+            {
+                MessageBox.Show("Employee informations is null");
+            }
+            else
+            {
+                try
+                {
+                    SqlCommand cnn = new SqlCommand("select * from emptab", con);
+                    SqlDataAdapter da = new SqlDataAdapter(cnn);
+                    DataTable table = new DataTable();
+                    da.Fill(table);
+                    dataGridView1.DataSource = table;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    con.Close();
+                }
+            }
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -98,19 +144,29 @@ namespace CRUDDemo
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=localhost;Initial Catalog=crud_db;Integrated Security=True");
-
-            con.Open();
-            SqlCommand cnn = new SqlCommand("select * from emptab where id=@id or name=@name or age=@age or salary=@salary", con);
-            cnn.Parameters.AddWithValue("@Id", int.Parse(textBox1.Text));
-            cnn.Parameters.AddWithValue("@Name", textBox1.Text);
-            cnn.Parameters.AddWithValue("@Age", int.Parse(textBox1.Text));
-            cnn.Parameters.AddWithValue("@Salary", int.Parse(textBox1.Text));
-            SqlDataAdapter da = new SqlDataAdapter(cnn);
-            DataTable table = new DataTable();
-            da.Fill(table);
-            con.Close();
-            dataGridView1.DataSource = table;
+            if (con == null)
+            {
+                MessageBox.Show("Employee informations is null");
+            }
+            else
+            {
+                try
+                {
+                    con.Open();
+                    SqlCommand cnn = new SqlCommand("select * from emptab where id=@id or name=@name or age=@age or salary=@salary", con);
+                    cnn.Parameters.AddWithValue("@Id", int.Parse(idTB.Text));
+                    SqlDataAdapter da = new SqlDataAdapter(cnn);
+                    DataTable table = new DataTable();
+                    da.Fill(table);
+                    con.Close();
+                    dataGridView1.DataSource = table;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    con.Close();
+                }
+            }
         }
 
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
@@ -118,11 +174,6 @@ namespace CRUDDemo
             Bitmap imagebmp = new Bitmap(dataGridView1.Width, dataGridView1.Height);
             dataGridView1.DrawToBitmap(imagebmp, new Rectangle(0, 0, dataGridView1.Width, dataGridView1.Height));
             e.Graphics.DrawImage(imagebmp, 5, 20);
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

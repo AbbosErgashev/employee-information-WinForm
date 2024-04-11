@@ -1,6 +1,6 @@
 ﻿namespace CRUDDemo
 {
-    partial class Form1
+    partial class CRUD
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CRUD));
             panel1 = new System.Windows.Forms.Panel();
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
@@ -41,10 +41,10 @@
             btnNew = new System.Windows.Forms.Button();
             btnAdd = new System.Windows.Forms.Button();
             label7 = new System.Windows.Forms.Label();
-            textBox4 = new System.Windows.Forms.TextBox();
-            textBox3 = new System.Windows.Forms.TextBox();
-            textBox2 = new System.Windows.Forms.TextBox();
-            textBox1 = new System.Windows.Forms.TextBox();
+            salaryTB = new System.Windows.Forms.TextBox();
+            ageTB = new System.Windows.Forms.TextBox();
+            nameTb = new System.Windows.Forms.TextBox();
+            idTB = new System.Windows.Forms.TextBox();
             label6 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
@@ -96,10 +96,10 @@
             panel2.Controls.Add(btnNew);
             panel2.Controls.Add(btnAdd);
             panel2.Controls.Add(label7);
-            panel2.Controls.Add(textBox4);
-            panel2.Controls.Add(textBox3);
-            panel2.Controls.Add(textBox2);
-            panel2.Controls.Add(textBox1);
+            panel2.Controls.Add(salaryTB);
+            panel2.Controls.Add(ageTB);
+            panel2.Controls.Add(nameTb);
+            panel2.Controls.Add(idTB);
             panel2.Controls.Add(label6);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(label4);
@@ -108,7 +108,6 @@
             panel2.Name = "panel2";
             panel2.Size = new System.Drawing.Size(890, 269);
             panel2.TabIndex = 1;
-            panel2.Paint += panel2_Paint;
             // 
             // btnSearch
             // 
@@ -216,43 +215,43 @@
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(198, 25);
             label7.TabIndex = 8;
-            label7.Text = "Employee information";
+            label7.Text = "Employee Information";
             // 
-            // textBox4
+            // salaryTB
             // 
-            textBox4.BackColor = System.Drawing.Color.FromArgb(59, 59, 59);
-            textBox4.ForeColor = System.Drawing.Color.White;
-            textBox4.Location = new System.Drawing.Point(124, 208);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new System.Drawing.Size(300, 31);
-            textBox4.TabIndex = 7;
+            salaryTB.BackColor = System.Drawing.Color.FromArgb(59, 59, 59);
+            salaryTB.ForeColor = System.Drawing.Color.White;
+            salaryTB.Location = new System.Drawing.Point(124, 208);
+            salaryTB.Name = "salaryTB";
+            salaryTB.Size = new System.Drawing.Size(300, 31);
+            salaryTB.TabIndex = 7;
             // 
-            // textBox3
+            // ageTB
             // 
-            textBox3.BackColor = System.Drawing.Color.FromArgb(59, 59, 59);
-            textBox3.ForeColor = System.Drawing.Color.White;
-            textBox3.Location = new System.Drawing.Point(124, 161);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new System.Drawing.Size(300, 31);
-            textBox3.TabIndex = 6;
+            ageTB.BackColor = System.Drawing.Color.FromArgb(59, 59, 59);
+            ageTB.ForeColor = System.Drawing.Color.White;
+            ageTB.Location = new System.Drawing.Point(124, 161);
+            ageTB.Name = "ageTB";
+            ageTB.Size = new System.Drawing.Size(300, 31);
+            ageTB.TabIndex = 6;
             // 
-            // textBox2
+            // nameTb
             // 
-            textBox2.BackColor = System.Drawing.Color.FromArgb(59, 59, 59);
-            textBox2.ForeColor = System.Drawing.Color.White;
-            textBox2.Location = new System.Drawing.Point(124, 112);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new System.Drawing.Size(300, 31);
-            textBox2.TabIndex = 5;
+            nameTb.BackColor = System.Drawing.Color.FromArgb(59, 59, 59);
+            nameTb.ForeColor = System.Drawing.Color.White;
+            nameTb.Location = new System.Drawing.Point(124, 112);
+            nameTb.Name = "nameTb";
+            nameTb.Size = new System.Drawing.Size(300, 31);
+            nameTb.TabIndex = 5;
             // 
-            // textBox1
+            // idTB
             // 
-            textBox1.BackColor = System.Drawing.Color.FromArgb(59, 59, 59);
-            textBox1.ForeColor = System.Drawing.Color.White;
-            textBox1.Location = new System.Drawing.Point(124, 66);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(300, 31);
-            textBox1.TabIndex = 4;
+            idTB.BackColor = System.Drawing.Color.FromArgb(59, 59, 59);
+            idTB.ForeColor = System.Drawing.Color.White;
+            idTB.Location = new System.Drawing.Point(124, 66);
+            idTB.Name = "idTB";
+            idTB.Size = new System.Drawing.Size(300, 31);
+            idTB.TabIndex = 4;
             // 
             // label6
             // 
@@ -300,14 +299,16 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(40, 40, 40);
             dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new System.Drawing.Point(-1, 337);
+            dataGridView1.Location = new System.Drawing.Point(0, 329);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowTemplate.Height = 33;
-            dataGridView1.Size = new System.Drawing.Size(900, 320);
+            dataGridView1.Size = new System.Drawing.Size(881, 315);
             dataGridView1.TabIndex = 2;
             // 
             // printDocument1
@@ -324,7 +325,7 @@
             printPreviewDialog1.Name = "printPreviewDialog1";
             printPreviewDialog1.Visible = false;
             // 
-            // Form1
+            // CRUD
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -334,7 +335,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            Name = "Form1";
+            Name = "CRUD";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "Employee";
             Load += Form1_Load;
@@ -356,10 +357,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox salaryTB;
+        private System.Windows.Forms.TextBox ageTB;
+        private System.Windows.Forms.TextBox nameTb;
+        private System.Windows.Forms.TextBox idTB;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnPrint;
